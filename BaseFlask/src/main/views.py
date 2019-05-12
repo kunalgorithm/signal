@@ -58,12 +58,16 @@ def getFriendVisits():
     print("FL", user.friendList)
     visits = Visit.objects(url=url, user__in=user.friendList)
     visitedFriends = []
+    seenFriends = set()
     for visit in visits:
-        parsedFriend = {
-            'name': visit.user.name,
-            'picUrl': visit.user.picUrl,
-            'timestamp': visit['timestamp']
-        }
-        visitedFriends.append(parsedFriend)
+        if visit.user.fbid not in seenFriends:
+            parsedFriend = {
+                'name': visit.user.name,
+                'picUrl': visit.user.picUrl,
+                'timestamp': visit['timestamp'],
+                'fbid': visit.user.fbid
+            }
+            visitedFriends.append(parsedFriend)
+            seenFriends.add(visit.user.fbid)
     return jsonify(visitedFriends)
 
