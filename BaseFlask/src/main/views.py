@@ -1,7 +1,8 @@
-from flask import Blueprint, flash, render_template, request, redirect, url_for
+from flask import Blueprint, flash, render_template, request, redirect, url_for, jsonify
 from ..models import Users
-from ..fb import getFriends, getMe
+from ..fb import getUserInfo
 import requests
+import datetime
 
 main = Blueprint('main', __name__)
 
@@ -12,7 +13,8 @@ def index():
 @main.route('/fblogin')
 def fblogin():
     print("UID", request.args['state'])
-    
+    gid = request.args['state']
+    print("TYPE", type(gid))
     p2Params = {
         'client_id': 824720791232936,
         'redirect_uri': "http://localhost:3001/fblogin",
@@ -23,8 +25,20 @@ def fblogin():
     data = r.json()
     print("As", data)
     access_token = data['access_token']
-    friendList = getFriends(access_token)
-    me = getMe(access_token)
+    userData = getUserInfo(access_token)
+    userData['gid'] = gid
+    print("USERS: ", userData)
+    user = Users(**userData)
+    user.save()
     return r.url
+    
+@main.route('/logVisit')
+def logVisit():
+    return True
 
+@main.route('/getFriendVisits')
+def getFriendVisits():
+    now = str(datetime.datetime.now())
+    data = [{'name': "Jorge J Fuentes", "picUrl": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=1053964268130651&height=800&width=800&ext=1560247989&hash=AeRB-Mp1Gjpe-0cT", "timestamp": now}]
+    return jsonify(data)
 
