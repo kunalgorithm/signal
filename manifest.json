@@ -1,0 +1,41 @@
+{
+	"name": "Agora",
+	"version": "1.0",
+	"description": "Make the Internet more social.",
+	"manifest_version": 2,
+    "options_page": "options.html",
+        
+    "permissions": [
+        "*://*.youtube.com/*", "tabs", "webNavigation"
+    ],
+
+	"content_scripts": [
+        {
+            "matches": ["*://*.youtube.com/*"],
+            "js": ["displayMatch.js"]
+        }
+    ],
+    
+    "background": {
+        "scripts": ["background.js"]
+    },
+
+    "page_action": {
+        "default_popup": "popup.html"
+    }/*,
+        "default_icon": {
+            "16": "images/img16.png",
+            "32": "images/img32.png",
+            "48": "images/img48.png",
+            "128": "images/img128.png"
+        }
+    },
+    
+    "icons": {
+        "16": "images/img16.png",
+        "32": "images/img32.png",
+        "48": "images/img48.png",
+        "128": "images/img128.png"
+    }*/
+}
+
