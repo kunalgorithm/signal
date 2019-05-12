@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %} Register {% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+{% endblock %}
+
+{% block body %}
+  <form action="#" method="post" enctype="application/x-www-form-urlencoded">
+    <div>
+      <label for="email">Email</label>
+      <input type="email"  name="email" id="email" placeholder="someone@example.com"/>
+    </div>
+    <div>
+      <label for="password" >Password</label>
+      <input type="password" name="password" id="password" placeholder="">
+    </div>
+    <div class="button">
+      <button type="submit"> Login </button>
+    </div>
+  </form>
+{% endblock %}

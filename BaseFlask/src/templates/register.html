@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %} Register {% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+{% endblock %}
+
+<!-- Could also render with the help of wtf_forms, but not super worth -->
+{% block body %}
+  <form action="#" method="post" enctype="application/x-www-form-urlencoded">
+    <div>
+      <label for="email">Email</label>
+      <input type="email"  name="email" id="email" placeholder="someone@example.com"/>
+    </div>
+    <div>
+      <label for="password" >Password</label>
+      <input type="password" name="password" id="password" placeholder="**************">
+    </div>
+    <div>
+      <label for="confirm">Confirm</label>
+      <input type="password" name="confirm" id="confirm" placeholder="**************">
+    </div>
+    <div class="button">
+      <button type="submit"> Ok </button>
+    </div>
+  </form>
+{% endblock %}
