@@ -81,8 +81,10 @@ function loadAgora(friendList) {
 
 function generateFriendHTML(friend) {
   let handleInfo =
-  '<img src=" {{imgsrc}} " alt="Your Friend" class="ballpic" height="60" width="60">' +
-  '<span id="titleSpan" style="font-size: 12px"> {{name}} </span>';
+  '<div class="card">' + 
+    '<img src=" {{imgsrc}} " alt="Your Friend" class="ballpic" height="60" width="60">' +
+    '<span id="titleSpan"> {{name}} </span>' + 
+  '</div>';
    // + '<span id="pSpan">viewed this video {{time}} ago.</span>';
 
   let template = Handlebars.compile(handleInfo);
@@ -92,8 +94,8 @@ function generateFriendHTML(friend) {
       name: friend.name,
       time: friend.timestamp
   });
-  // console.log(friendHTML);
-  return friendHTML
+  console.log(friendHTML);
+  return friendHTML;
 }
 
 

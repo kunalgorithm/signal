@@ -1,12 +1,20 @@
-.flex-container {
-    display: flex;
+#handleInfo {
+   display: flex;
+   justify-content: left;
 }
 
 #agora {
-    background-color: FFFFFF;
+    background-color: #FFFFFF;
 }
 
-.ballpic {
-    transition: all 1.4s ease;
-    margin: 10px 15px;
+.card {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  justify-content: center;
+  align-content: center;
+}
+
+#titleSpan {
+  font-size: 12px;
 }
