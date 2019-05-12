@@ -60,6 +60,7 @@ def getFriendVisits():
     visitedFriends = []
     seenFriends = set()
     for visit in visits:
+        print(visit)
         if visit.user.fbid not in seenFriends:
             parsedFriend = {
                 'name': visit.user.name,
