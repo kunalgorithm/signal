@@ -6,13 +6,16 @@
   "options_page": "options.html",
       
   "permissions": [
-      "*://*.youtube.com/*", "tabs", "webNavigation"
+      "*://*.youtube.com/watch*", "tabs", "webNavigation"
   ],
+  
+  "web_accessible_resources": ["img/jorge.png"],
 	"content_security_policy": "script-src 'self' https://connect.facebook.net; object-src 'self'",
-
 	"content_scripts": [
         {
-            "matches": ["*://*.youtube.com/*"],
+            "matches": ["*://*.youtube.com/watch*"],
+            "css": ["displayMatch.css"],
+            "run_at": "document_idle",
             "js": ["js/displayMatch.js"]
         }
     ],
@@ -21,7 +24,7 @@
         "scripts": ["js/background.js"]
     },
 
-    "page_action": {
+    "browser_action": {
         "default_popup": "popup.html"
     }/*,
         "default_icon": {
