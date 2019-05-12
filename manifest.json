@@ -20,12 +20,12 @@
             "matches": ["*://*.youtube.com/watch*"],
             "css": ["displayMatch.css"],
             "run_at": "document_idle",
-            "js": ["js/displayMatch.js"]
+            "js": ["build/content.js"]
         }
     ],
     
     "background": {
-        "scripts": ["js/background.js"]
+        "scripts": ["build/background.js"]
     }
 
     /* "browser_action": {

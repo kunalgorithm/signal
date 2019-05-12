@@ -14,3 +14,8 @@ chrome.runtime.onMessage.addListener(
       }
 });
 
+const moment = require('moment');
+
+console.log("Imported");
+console.log("HELP");
+console.log(moment());

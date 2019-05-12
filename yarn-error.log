@@ -1,0 +1,57 @@
+Arguments: 
+  /Users/jfuentes/.nvm/versions/node/v10.11.0/bin/node /usr/local/Cellar/yarn/1.15.2/libexec/bin/yarn.js install
+
+PATH: 
+  /Library/Frameworks/Python.framework/Versions/3.7/bin:/Users/jfuentes/.rbenv/shims:/Users/jfuentes/.nvm/versions/node/v10.11.0/bin:/Users/jfuentes/MyTools/:/anaconda2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.15.2
+
+Node version: 
+  10.11.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/jfuentes/Projects/Agora/package.json: Unexpected token } in JSON at position 447
+      at JSON.parse (<anonymous>)
+      at /usr/local/Cellar/yarn/1.15.2/libexec/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/Cellar/yarn/1.15.2/libexec/lib/cli.js:304:30)
+      at /usr/local/Cellar/yarn/1.15.2/libexec/lib/cli.js:315:13
+
+npm manifest: 
+  {
+    "name": "Agora",
+    "version": "0.1.0",
+    "description": "Make web social again",
+    "main": "src/js/main.js",
+    "scripts": {
+      "watch:content": "parcel watch js/displayMatch.js -d src/build/ -o content.js",
+      "watch:background": "parcel watch js/background.js -d src/build/ -o background.js",
+      "watch": "concurrently \"npm run watch:content\" \"npm run watch:background\"",
+      "delete": "rm -rf node_modules && rm package-lock.json",
+    },
+    "author": "Jorge Fuentes",
+    "dependencies": {
+      "babel-preset-env": "^1.7.0",
+      "babel-preset-react": "^6.24.1",
+      "crypto-js": "^3.1.9-1",
+      "moment": "^2.24.0",
+      "parcel-bundler": "^1.12.3",
+      "react": "^16.8.6",
+      "react-dom": "^16.8.6",
+      "react-load-script": "0.0.6"
+    },
+    "devDependencies": {
+      "babel-core": "^6.26.3",
+      "concurrently": "^4.1.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
