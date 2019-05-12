@@ -6,11 +6,12 @@
   "options_page": "options.html",
       
   "permissions": [
-      "*://*.youtube.com/watch*", 
-			"tabs", 
-			"webNavigation", 
-			"identity", 
-			"identity.email"
+    "*://*.youtube.com/watch*", 
+    "http://localhost:3000/*",
+    "tabs", 
+    "webNavigation", 
+    "identity", 
+    "identity.email"
   ],
   
   "web_accessible_resources": ["img/jorge.png"],
