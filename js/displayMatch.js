@@ -7,6 +7,16 @@ document.head.appendChild(imported);
 
 var currentURL = location.href;
 
+const Http = new XMLHttpRequest();
+const url=chrome.runtime.getURL('http://127.0.0.1:3000/getFriendVisits');
+console.log(url);
+Http.open("GET", url);
+Http.send();
+Http.onreadystatechange=(e)=>{
+    console.log(Http.responseText)
+}
+
+
 if(currentURL.includes("watch")){
     console.log(currentURL + " is a video!");
 
@@ -49,7 +59,6 @@ if(currentURL.includes("watch")){
 
     }
 }
-
 
 
 /*
