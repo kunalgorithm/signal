@@ -13,7 +13,7 @@
   flex-direction: column;
   margin: 10px;
   justify-content: center;
-  align-content: center;
+  align-items: center;
 }
 
 #titleSpan {
@@ -21,4 +21,5 @@
   font-weight: bold;
   color: #ff6961;
   font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-top: 2px;
 }

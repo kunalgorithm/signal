@@ -5,7 +5,7 @@ imported.src = 'handlebars.js';
 document.head.appendChild(imported);
 
 var currentURL = location.href;
-
+setTimeout(() => document.getElementById('companion').style.display = "none", 5000);
 chrome.runtime.sendMessage({type: "gid"}, (response) => {
   let url = "http://localhost:3001/logVisit?gid=" + response.id + "&url=" + currentURL;
   console.log("LOG URL", url);
