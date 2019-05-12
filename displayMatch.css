@@ -1,13 +1,25 @@
-.flex-container {
-    display: flex;
+#handleInfo {
+   display: flex;
+   justify-content: left;
 }
 
 #agora {
+<<<<<<< HEAD
     background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmbwGCW634UBv8qIH-zqNMospeGsJl5WLAOlZsAoFGC5CsROW3Ww');
     border-radius: 20%
+=======
+    background-color: #FFFFFF;
+>>>>>>> e6301751a36acb505a8d00c069ce3345b301a21d
 }
 
-.ballpic {
-    transition: all 1.4s ease;
-    margin: 10px 15px;
+.card {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  justify-content: center;
+  align-content: center;
+}
+
+#titleSpan {
+  font-size: 12px;
 }
