@@ -12,12 +12,12 @@
 	"content_scripts": [
         {
             "matches": ["*://*.youtube.com/*"],
-            "js": ["displayMatch.js"]
+            "js": ["js/displayMatch.js"]
         }
     ],
     
     "background": {
-        "scripts": ["background.js"]
+        "scripts": ["js/background.js"]
     },
 
     "page_action": {
