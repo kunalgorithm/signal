@@ -4,12 +4,8 @@
 }
 
 #agora {
-<<<<<<< HEAD
     background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmbwGCW634UBv8qIH-zqNMospeGsJl5WLAOlZsAoFGC5CsROW3Ww');
-    border-radius: 20%
-=======
-    background-color: #FFFFFF;
->>>>>>> e6301751a36acb505a8d00c069ce3345b301a21d
+    border-radius: 25px
 }
 
 .card {
