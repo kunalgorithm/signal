@@ -7,7 +7,7 @@
       
   "permissions": [
     "*://*.youtube.com/watch*", 
-    "http://localhost:3000/*",
+    "http://localhost:3001/*",
     "tabs", 
     "webNavigation", 
     "identity", 

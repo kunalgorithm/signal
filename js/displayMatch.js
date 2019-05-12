@@ -4,18 +4,17 @@ var imported = document.createElement('script');
 imported.src = 'handlebars.js';
 document.head.appendChild(imported);
 
-
 var currentURL = location.href;
 
-const Http = new XMLHttpRequest();
-const url=chrome.runtime.getURL('http://127.0.0.1:3000/getFriendVisits');
-console.log(url);
-Http.open("GET", url);
-Http.send();
-Http.onreadystatechange=(e)=>{
-    console.log(Http.responseText)
-}
-
+chrome.runtime.sendMessage({type: "gid"}, function(response) {
+  console.log(response);
+  let url = "http://localhost:3001/getFriendVisits?gid=" + response.id + "&url=" + currentURL;
+    
+    fetch(url)
+      .then(function(myJson) {
+        console.log(JSON.stringify(myJson));
+      });
+});
 
 if(currentURL.includes("watch")){
     console.log(currentURL + " is a video!");
@@ -49,11 +48,6 @@ if(currentURL.includes("watch")){
         });
 
         document.getElementById("handleInfo").innerHTML += handleData;
-
-        /*var mainDiv = document.createElement("div");
-    mainDiv.id ="agoraDiv";
-    d.innerHtml = html;
-    t1.appendChild(d);*/
     }
     else{
 
