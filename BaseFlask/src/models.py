@@ -1,10 +1,15 @@
-from mongoengine import Document, EmailField, ListField, ReferenceField, StringField, URLField
+from mongoengine import Document, EmailField, EmbeddedDocument, EmbeddedDocumentField, ListField, ReferenceField, StringField, URLField
 from werkzeug.security import generate_password_hash, check_password_hash
 
-class Users(Document):
+class User(Document):
     gid = StringField()
-    fbid = StringField()
+    fbid = StringField(primary_key=True)
+    fbToken = StringField()
     friendList = ListField(ReferenceField('self'))
     name = StringField()
     picUrl = URLField()
-    
+
+class Visit(Document):
+    user = ReferenceField(User)
+    timestamp = StringField()
+    url = URLField()

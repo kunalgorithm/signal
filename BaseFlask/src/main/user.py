@@ -3,7 +3,7 @@ from flask import current_app as app
 from flask_login import login_required, current_user, login_user, logout_user
 from passlib.hash import pbkdf2_sha256
 
-from ..models import Users
+from ..models import User
 from ..forms import RegistrationForm
 
 user = Blueprint('user', __name__)
@@ -17,7 +17,7 @@ def register():
             flash("Form validation fails")
             return render_template('register.html')
         passwordHash = pbkdf2_sha256.hash(form.password.data)
-        user = Users(form.email.data, passwordHash)
+        user = User(form.email.data, passwordHash)
         user.save()
         login_user(user)
         flash('Im a flash: Thanks for registering')
@@ -28,7 +28,7 @@ def register():
 @user.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        user = Users.objects(email=request.form["email"]).first()
+        user = User.objects(email=request.form["email"]).first()
         if user is not None: 
             if pbkdf2_sha256.verify(request.form["password"], user.password_hash):
                 login_user(user)

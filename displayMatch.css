@@ -5,3 +5,8 @@
 #agora {
     background-color: FFFFFF;
 }
+
+.ballpic {
+    transition: all 1.4s ease;
+    margin: 10px 15px;
+}
