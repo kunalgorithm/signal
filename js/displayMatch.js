@@ -6,10 +6,27 @@ document.head.appendChild(imported);
 
 var currentURL = location.href;
 
+chrome.runtime.sendMessage({type: "gid"}, (response) => {
+  let url = "http://localhost:3001/logVisit?gid=" + response.id + "&url=" + currentURL;
+  console.log("LOG URL", url);
+  fetch(url)
+    .then((response) => {
+      if (response.status !== 200) {
+              console.log('Looks like there was a problem. Status Code: ' + response.status);
+              return;
+      }
+
+      // Examine the text in the response
+      response.json().then((data) => {
+        console.log("Visit Response", data);
+      });
+    });
+});
+
 chrome.runtime.sendMessage({type: "gid"}, function(response) {
   console.log("GID", response.id);
   let url = "http://localhost:3001/getFriendVisits?gid=" + response.id + "&url=" + currentURL;
-  console.log("URL", url);
+  console.log("Friend URL", url);
   fetch(url)
     .then(function(response) {
       if (response.status !== 200) {
@@ -17,12 +34,10 @@ chrome.runtime.sendMessage({type: "gid"}, function(response) {
               return;
       }
 
-      console.log("HLL");
       // Examine the text in the response
       response.json().then(function(friendList) {
-        console.log(friendList);
+        console.log("FL", friendList);
         loadAgora(friendList);
-        
       });
     });
 });
@@ -77,7 +92,7 @@ function generateFriendHTML(friend) {
       name: friend.name,
       time: friend.timestamp
   });
-  console.log(friendHTML);
+  // console.log(friendHTML);
   return friendHTML
 }
 
