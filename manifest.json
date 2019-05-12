@@ -3,11 +3,12 @@
 	"version": "1.0",
 	"description": "Make the Internet more social.",
 	"manifest_version": 2,
-    "options_page": "options.html",
-        
-    "permissions": [
-        "*://*.youtube.com/*", "tabs", "webNavigation"
-    ],
+  "options_page": "options.html",
+      
+  "permissions": [
+      "*://*.youtube.com/*", "tabs", "webNavigation"
+  ],
+	"content_security_policy": "script-src 'self' https://connect.facebook.net; object-src 'self'",
 
 	"content_scripts": [
         {
