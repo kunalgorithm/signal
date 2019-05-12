@@ -1,8 +1,7 @@
 .flex-container {
     display: flex;
-    justify-content: center;
 }
 
 #agora {
-    background-color: beige;
+    background-color: FFFFFF;
 }
