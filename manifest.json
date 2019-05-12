@@ -8,10 +8,14 @@
     "permissions": [
         "*://*.youtube.com/watch*", "tabs", "webNavigation"
     ],
+    
+    "web_accessible_resources": ["img/jorge.png"],
 
 	"content_scripts": [
         {
             "matches": ["*://*.youtube.com/watch*"],
+            "css": ["displayMatch.css"],
+            "run_at": "document_idle",
             "js": ["js/displayMatch.js"]
         }
     ],
