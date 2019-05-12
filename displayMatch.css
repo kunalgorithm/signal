@@ -17,6 +17,8 @@
 }
 
 #titleSpan {
-  font-size: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #ff6961;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
