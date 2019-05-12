@@ -8,7 +8,7 @@ def getUserInfo(access_token):
     r = requests.get('https://graph.facebook.com/me', params=params)
 
     data = r.json()
-    print("Data: ", data)
+    # print("Data: ", data)
     friends = data['friends']
     # total_friends = friends.summary.total_count
     friendList = friends['data']
@@ -19,5 +19,5 @@ def getUserInfo(access_token):
         'name': data['name'],
         'picUrl': data['picture']['data']['url']
     }
-    print("User", parsedUser)
+    # print("User", parsedUser)
     return parsedUser
