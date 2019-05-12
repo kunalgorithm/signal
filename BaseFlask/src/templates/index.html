@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %} Homepage {% endblock %}
+
+{% block body %}
+  <h1>
+    <marquee><a href={{ url_for('user.register') }}> Register </a></marquee>
+    <marquee><a href={{ url_for('user.login') }}> Login </a></marquee>
+  </h1>
+
+  {% if current_user.is_authenticated %}
+    <h2> Current User is {{ current_user.email }}</h2>
+    <marquee><a href={{ url_for('user.logout') }}> Logout </a></marquee>
+  {% endif %}
+{% endblock %}

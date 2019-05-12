@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+
+[packages]
+flask = "*"
+flask-mongoengine = "*"
+flask-login = "*"
+pymongo = {extras = ["tls"],version = "*"}
+python-dotenv = "*"
+passlib = "*"
+dnspython = "*"
+
+[requires]
+python_version = "3.7"
