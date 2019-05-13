@@ -9,7 +9,9 @@ There are two parts to this app. The backend build in Flask uses a MongoDB Datab
 You can activate developer mode for Chrome at `chrome://extensions`. Then simply load unpacked extension and select the chrome extension folder. Then select the options page and use the Click Me Login to authenicate with FB Login. You must be added as developer to the Agora application.
 
 ### Flask
-Install pipenv if you haven't already Python 3.7
-Get the .env file pointing to the Mongo database
-`pipenv install`
-`pipenv run flask run -p 3001`
+- Install pipenv if you haven't already Python 3.7.
+- Get the .env file pointing to the Mongo database
+```
+pipenv install
+pipenv run flask run -p 3001
+```
