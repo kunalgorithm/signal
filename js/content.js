@@ -23,15 +23,15 @@ function init() {
 }
 
 function reloadContentScript(hide) {
-  console.log("Hello, I am being caallled my boy");
   const currentURL = location.href;
   console.log("Establishing Signal");
-
+  let websiteModule = null;
   if (currentURL.includes("facebook.com")) {
-    require("./facebook/facebook.js").facebook();
+    websiteModule = require("./facebook/facebook.js");
   } else if (currentURL.includes("twitter.com")) {
-    require("./twitter/twitter.js").main(hide);
+    websiteModule = require("./twitter/twitter.js");
   } else {
-    require("./test.js");
+    websiteModule = require("./test.js");
   }
+  websiteModule.main(hide);
 }
