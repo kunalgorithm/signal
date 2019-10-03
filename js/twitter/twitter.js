@@ -1,21 +1,15 @@
 module.exports = { main };
 
-function main() {
+function main(hide) {
   console.log("honey i'm called");
   burnNewsFeedIfOnHomePage();
 
   const newsFeedSelector = '[data-testid="primaryColumn"]';
-
-  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    // the state was changed, do something about it
-    if (request.message === "pageShouldUpdate") {
-      if (request.hide) {
-        burnNewsFeedIfOnHomePage();
-      } else {
-        reviveNewsfeedIfOnHomePage();
-      }
-    }
-  });
+  if (hide) {
+    burnNewsFeedIfOnHomePage();
+  } else {
+    reviveNewsfeedIfOnHomePage();
+  }
 
   function burnNewsFeedIfOnHomePage() {
     chrome.storage.sync.get("hidenewsfeed", function(data) {

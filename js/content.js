@@ -1,24 +1,28 @@
-reloadContentScript();
+init();
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.message === "urlChanged") {
-    reloadContentScript();
+    chrome.storage.sync.get("hidenewsfeed", function(data) {
+      reloadContentScript(data.hidenewsfeed);
+    });
   }
 });
 
-//   let friendHTML = template ({
-//       imgsrc: friend.picUrl,
-//       name: friend.name,
-//       time: friend.timestamp
-//   });
-//   console.log(friendHTML);
-//   return friendHTML;
-// }
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  // the state was changed, do something about it
+  if (request.message === "pageWillUpdate") {
+    reloadContentScript(request.hide);
+  }
+});
 
-const currentURL = location.href;
-console.log("Establishing Signal");
+// initialize on page load
+function init() {
+  chrome.storage.sync.get("hidenewsfeed", function(data) {
+    require("./shared/helpers").pageShouldUpdate(data.hidenewsfeed);
+  });
+}
 
-function reloadContentScript() {
+function reloadContentScript(hide) {
   console.log("Hello, I am being caallled my boy");
   const currentURL = location.href;
   console.log("Establishing Signal");
@@ -26,7 +30,7 @@ function reloadContentScript() {
   if (currentURL.includes("facebook.com")) {
     require("./facebook/facebook.js").facebook();
   } else if (currentURL.includes("twitter.com")) {
-    require("./twitter/twitter.js").main();
+    require("./twitter/twitter.js").main(hide);
   } else {
     require("./test.js");
   }

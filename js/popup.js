@@ -5,6 +5,7 @@ updateCheckboxUiFromLocalStorage();
 function updateCheckboxUiFromLocalStorage() {
   chrome.storage.sync.get("hidenewsfeed", function(data) {
     updateCheckboxState(data.hidenewsfeed);
+    require("./shared/helpers").pageShouldUpdate(data.hidenewsfeed);
   });
 }
 
@@ -14,7 +15,9 @@ function updateCheckboxState(state) {
 }
 
 checkbox.onclick = function(element) {
-  require("./shared/helpers").pageShouldUpdate();
+  require("./shared/helpers").toggleHide(
+    require("./shared/helpers").pageShouldUpdate
+  );
 };
 
 console.log("hi");
