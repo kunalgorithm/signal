@@ -23,4 +23,10 @@
 // }
 
 const currentURL = location.href;
-console.log("CONTENT SCRIPT HELLO", currentURL);
+console.log("Establishing Signal");
+
+if(currentURL.includes("facebook.com")) {
+    require("./facebook/facebook.js");
+} else {
+    require("./test.js");
+}
