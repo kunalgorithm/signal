@@ -6,7 +6,8 @@
   "scripts": {
     "watch:content": "parcel watch js/content.js -d build/ -o content.js",
     "watch:background": "parcel watch js/background.js -d build/ -o background.js",
-    "watch": "concurrently \"npm run watch:content\" \"npm run watch:background\"",
+    "watch:popup": "parcel watch js/popup.js -d build/ -o popup.js",
+    "watch": "concurrently \"npm run watch:content\" \"npm run watch:background\" \"npm run watch:popup\"",
     "delete": "rm -rf node_modules && rm package-lock.json"
   },
   "author": "Jorge Fuentes",

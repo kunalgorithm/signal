@@ -1,10 +1,10 @@
-reloadContentScript()
+reloadContentScript();
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.message === "urlChanged") {
-      reloadContentScript()
-    }
-  });
+  if (request.message === "urlChanged") {
+    reloadContentScript();
+  }
+});
 
 //   let friendHTML = template ({
 //       imgsrc: friend.picUrl,
@@ -18,14 +18,16 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 const currentURL = location.href;
 console.log("Establishing Signal");
 
-function reloadContentScript(){
-    console.log("Hello, I am being caallled my boy")
-    const currentURL = location.href;
-    console.log("Establishing Signal");
-    
-    if(currentURL.includes("facebook.com")) {
-        require("./facebook/facebook.js").facebook();
-    } else {
-        require("./test.js");
-    }
+function reloadContentScript() {
+  console.log("Hello, I am being caallled my boy");
+  const currentURL = location.href;
+  console.log("Establishing Signal");
+
+  if (currentURL.includes("facebook.com")) {
+    require("./facebook/facebook.js").facebook();
+  } else if (currentURL.includes("twitter.com")) {
+    require("./twitter/twitter.js").main();
+  } else {
+    require("./test.js");
+  }
 }
