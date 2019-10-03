@@ -27,6 +27,8 @@ console.log("Establishing Signal");
 
 if(currentURL.includes("facebook.com")) {
     require("./facebook/facebook.js");
+} else if(currentURL.includes("reddit.com")) {
+    require("./reddit/reddit.js");
 } else {
     require("./test.js");
 }
