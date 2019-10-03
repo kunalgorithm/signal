@@ -26,6 +26,26 @@ function reloadContentScript(hide) {
   const currentURL = location.href;
   console.log("Establishing Signal");
   let websiteModule = null;
+  /* 
+  How to add your module by Dmitri
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Your module must export a function called main
+
+  module.exports = {
+    main: function(hide){}
+  }
+
+  main receives one argument called "hide"
+
+  hide is a Boolean that says whether or not to hide the feed etc.
+
+  IMPORTANT: Your module should do something when hide is true AND when hide is false
+  Hide is false means the user is toggling the hiding off
+  which means you should make everything re-appear
+
+  :)
+
+  */
   if (currentURL.includes("facebook.com")) {
     websiteModule = require("./facebook/facebook.js");
   } else if (currentURL.includes("twitter.com")) {
