@@ -7,7 +7,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   });
 
 
-
 function reloadContentScript(){
     console.log("Hello, I am being caallled my boy")
     const currentURL = location.href;
