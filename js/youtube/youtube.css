@@ -1,0 +1,25 @@
+#handleInfo {
+   display: flex;
+   justify-content: left;
+}
+
+#agora {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmbwGCW634UBv8qIH-zqNMospeGsJl5WLAOlZsAoFGC5CsROW3Ww');
+    border-radius: 25px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+#titleSpan {
+  font-size: 15px;
+  font-weight: bold;
+  color: #ff6961;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-top: 2px;
+}

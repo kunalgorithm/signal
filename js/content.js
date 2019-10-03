@@ -1,3 +1,4 @@
+// const { youtube } = require("./youtube/youtube");
 //THIS IS A WAY TO INJECT SCRIPTS DONT RECOMMEND SORRY
 // var imported = document.createElement('script');
 // imported.src = 'handlebars.js';
@@ -5,9 +6,9 @@
 
 // function generateFriendHTML(friend) {
 //   let handleInfo =
-//   '<div class="card">' + 
+//   '<div class="card">' +
 //     '<img src=" {{imgsrc}} " alt="Your Friend" class="ballpic" height="60" width="60">' +
-//     '<span id="titleSpan"> {{name}} </span>' + 
+//     '<span id="titleSpan"> {{name}} </span>' +
 //   '</div>';
 //    // + '<span id="pSpan">viewed this video {{time}} ago.</span>';
 
@@ -24,3 +25,10 @@
 
 const currentURL = location.href;
 console.log("CONTENT SCRIPT HELLO", currentURL);
+
+if (currentURL.includes("facebook")) {
+  console.log("hiding facebook navbar .");
+  document.getElementById("left_nav_section_nodes").style.visibility = "hidden";
+
+  // youtube();
+}
