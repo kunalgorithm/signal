@@ -6,3 +6,10 @@ function urlChanged() {
     chrome.tabs.sendMessage(activeTab.id, { message: "urlChanged" });
   });
 }
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  // the page *should* update, so make it update
+  if (request.message === "pageShouldUpdate") {
+    require("./shared/helpers").pageWillUpdate(request.hide);
+  }
+});
