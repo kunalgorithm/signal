@@ -24,11 +24,11 @@
 // }
 
 const currentURL = location.href;
-console.log("CONTENT SCRIPT HELLO", currentURL);
+console.log("Establishing Signal");
 
-if (currentURL.includes("facebook")) {
-  console.log("hiding facebook navbar .");
-  document.getElementById("left_nav_section_nodes").style.visibility = "hidden";
-
-  // youtube();
+if (currentURL.includes("facebook.com")) {
+  require("./facebook/facebook.js");
+  // document.getElementById("left_nav_section_nodes").style.visibility = "hidden";
+} else {
+  require("./test.js");
 }

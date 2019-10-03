@@ -6,9 +6,7 @@
   "options_page": "options.html",
 
   "permissions": [
-    "*://*.facebook.com/*",
-    "*://*.youtube.com/*",
-    "http://localhost:3001/*",
+    "<all_urls>",
     "tabs",
     "webNavigation",
     "identity",
@@ -18,7 +16,7 @@
   "content_security_policy": "script-src 'self' https://connect.facebook.net; object-src 'self'",
   "content_scripts": [
     {
-      "matches": ["*://*.facebook.com/*"],
+      "matches": ["<all_urls>"],
       "run_at": "document_idle",
       "js": ["build/content.js"]
     }
