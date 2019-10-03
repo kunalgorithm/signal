@@ -21,7 +21,6 @@
 //   console.log(friendHTML);
 //   return friendHTML;
 // }
-
 const currentURL = location.href;
 console.log("Establishing Signal");
 
