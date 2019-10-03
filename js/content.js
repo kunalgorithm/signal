@@ -27,8 +27,11 @@ const currentURL = location.href;
 console.log("Establishing Signal");
 
 if (currentURL.includes("facebook.com")) {
-  require("./facebook/facebook.js");
-  // document.getElementById("left_nav_section_nodes").style.visibility = "hidden";
+  const { facebook } = require("./facebook/facebook.js");
+  facebook();
+} else if (currentURL.includes("youtube")) {
+  const { youtube } = require("./youtube/youtube.js");
+  youtube();
 } else {
   require("./test.js");
 }

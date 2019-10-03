@@ -3,6 +3,6 @@ module.exports = {
 };
 
 function youtube() {
-  document.getElementById("page-manager").style.visibility = "hidden";
   console.log("🏃‍♂ running youtube.js");
+  document.getElementById("page-manager").style.visibility = "hidden";
 }
