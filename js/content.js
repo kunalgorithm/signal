@@ -14,6 +14,8 @@ function reloadContentScript(){
     
     if(currentURL.includes("facebook.com")) {
         require("./facebook/facebook.js").facebook();
+    } else if(currentURL.includes("linkedin.com")) {
+        require("./linkedin/linkedin.js").linkedin();
     } else {
         require("./test.js");
     }
