@@ -14,7 +14,7 @@ function reloadContentScript(){
     console.log("Establishing Signal");
     
     if(currentURL.includes("facebook.com")) {
-        require("./facebook/facebook.js");
+        require("./facebook/facebook.js").facebook();
     } else {
         require("./test.js");
     }
