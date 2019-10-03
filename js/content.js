@@ -1,17 +1,10 @@
-//THIS IS A WAY TO INJECT SCRIPTS DONT RECOMMEND SORRY
-// var imported = document.createElement('script');
-// imported.src = 'handlebars.js';
-// document.head.appendChild(imported);
+reloadContentScript()
 
-// function generateFriendHTML(friend) {
-//   let handleInfo =
-//   '<div class="card">' + 
-//     '<img src=" {{imgsrc}} " alt="Your Friend" class="ballpic" height="60" width="60">' +
-//     '<span id="titleSpan"> {{name}} </span>' + 
-//   '</div>';
-//    // + '<span id="pSpan">viewed this video {{time}} ago.</span>';
-
-//   let template = Handlebars.compile(handleInfo);
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.message === "urlChanged") {
+      reloadContentScript()
+    }
+  });
 
 //   let friendHTML = template ({
 //       imgsrc: friend.picUrl,
@@ -25,10 +18,14 @@
 const currentURL = location.href;
 console.log("Establishing Signal");
 
-if(currentURL.includes("facebook.com")) {
-    require("./facebook/facebook.js");
-} else if(currentURL.includes("reddit.com")) {
-    require("./reddit/reddit.js");
-} else {
-    require("./test.js");
+function reloadContentScript(){
+    console.log("Hello, I am being caallled my boy")
+    const currentURL = location.href;
+    console.log("Establishing Signal");
+    
+    if(currentURL.includes("facebook.com")) {
+        require("./facebook/facebook.js").facebook();
+    } else {
+        require("./test.js");
+    }
 }
