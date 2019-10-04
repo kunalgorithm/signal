@@ -6,24 +6,22 @@
   "scripts": {
     "watch:content": "parcel watch js/content.js -d build/ -o content.js",
     "watch:background": "parcel watch js/background.js -d build/ -o background.js",
-    "watch": "concurrently \"npm run watch:content\" \"npm run watch:background\"",
+    "watch:popup": "parcel watch js/popup.js -d build/ -o popup.js",
+    "watch": "concurrently \"npm run watch:content\" \"npm run watch:background\" \"npm run watch:popup\"",
     "delete": "rm -rf node_modules && rm package-lock.json"
   },
   "author": "Jorge Fuentes",
   "dependencies": {
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "crypto-js": "^3.1.9-1",
-    "handlebars": "^4.1.2",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-react": "^7.0.0",
     "moment": "^2.24.0",
     "parcel-bundler": "^1.12.3",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-load-script": "0.0.6",
-    "test.js": "^1.0.0"
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
+    "@babel/core": "^7.6.2",
     "concurrently": "^4.1.0"
   }
 }
