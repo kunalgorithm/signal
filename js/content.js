@@ -1,3 +1,4 @@
+// @ts-nocheck
 init();
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
