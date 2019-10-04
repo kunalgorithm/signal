@@ -19,7 +19,8 @@
     {
       "matches": ["<all_urls>"],
       "run_at": "document_idle",
-      "js": ["build/content.js"]
+      "js": ["build/content.js"],
+      "css": ["css/style.css"]
     }
   ],
 

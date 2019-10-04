@@ -58,3 +58,21 @@ function reloadContentScript(hide) {
   }
   websiteModule.main(hide);
 }
+
+function shakeBody() {
+    console.log("SHAKING");
+    document.body.style.animation = "none";
+    document.body.style.animation = "signal-shakeshake 0.82s cubic-bezier(.36,.07,.19,.97) both";
+}
+
+setInterval(shakeBody, 1000);
+
+function trackTime() {
+    console.log("track time");
+    chrome.storage.sync.set({"hell": 1});
+    console.log("T", chrome.storage.sync.get(["hell"], storage => {
+        console.log(storage);
+    }));
+}
+
+trackTime();
