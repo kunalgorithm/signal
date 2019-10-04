@@ -5,24 +5,15 @@ let elementsHidden = [];
 function hideEl(el) {
   //Instead of visibilty just move off page because weird to deal with svgs
   // https://github.com/highcharts/highcharts/issues/2597
-  // Actually store prior style in DOM
-  el.signal_prior_style = {position: el.style.position, right: el.style.right};
   el.style.position = "relative";
   el.style.right = "2000em";
   elementsHidden.push(el);
-  console.log("HIDE", elementsHidden);
 }
 
 function showLinkedin() {
   console.log("SHOW", elementsHidden, elementsHidden.length);
   elementsHidden.map(e => {
-    if(e.signal_prior_style !== undefined) {
-      e.style.position = e.signal_prior_style.position;
-      e.style.right = e.signal_prior_style.right;
-      e.signal_prior_style = undefined;
-    } else {
-      console.log("Overlapping calls is the problem");
-    }
+    e.style.position = "static";
   });
   elementsHidden = [];
 }
