@@ -51,6 +51,8 @@ function reloadContentScript(hide) {
     websiteModule = require("./facebook/facebook.js");
   } else if (currentURL.includes("twitter.com")) {
     websiteModule = require("./twitter/twitter.js");
+  } else if (currentURL.includes("youtube.com")) {
+    websiteModule = require("./youtube/youtube.js");
   } else if (currentURL.includes("linkedin.com")) {
     websiteModule = require("./linkedin/linkedin.js");
   } else {
