@@ -71,7 +71,7 @@ function reloadContentScript(hide) {
 
 
 const timerID = "signal-domain-timer";
-const nudgeInterval = 30000;
+const nudgeInterval = 900000;
 
 function makeTimeString(rawS) {
     const minutes = Math.floor(rawS / 60);
