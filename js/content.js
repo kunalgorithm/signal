@@ -16,6 +16,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   }
 });
 
+// mercurymessagesCountValue
+
 // initialize on page load
 function init() {
   chrome.storage.sync.get("hidenewsfeed", function(data) {
@@ -53,6 +55,8 @@ function reloadContentScript(hide) {
     websiteModule = require("./twitter/twitter.js");
   } else if (currentURL.includes("linkedin.com")) {
     websiteModule = require("./linkedin/linkedin.js");
+  } else if (currentURL.includes("reddit.com")) {
+    websiteModule = require("./reddit/reddit.js");
   } else {
     websiteModule = require("./test.js");
   }
