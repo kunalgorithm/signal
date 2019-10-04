@@ -6,10 +6,10 @@
   "options_page": "options.html",
 
   "permissions": [
-    "<all_urls>",
     "tabs",
     "storage",
     "webNavigation",
+    "declarativeContent",
     "identity",
     "identity.email"
   ],
@@ -17,7 +17,13 @@
   "content_security_policy": "script-src 'self' https://connect.facebook.net; object-src 'self'",
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": [
+        "*://*.twitter.com/*",
+        "*://*.facebook.com/*",
+        "*://*.linkedin.com/*",
+        "*://*.youtube.com/*",
+        "*://*.reddit.com/*"
+      ],
       "run_at": "document_idle",
       "js": ["build/content.js"],
       "css": ["css/style.css"]
