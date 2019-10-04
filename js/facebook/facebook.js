@@ -5,8 +5,11 @@ console.log("🤦‍ running facebook script");
 let child 
 let parent
 let counter
+let paginateCount
 
 function main(hide) {
+  if (paginateCount === undefined) paginateCount = 0
+
   if (counter === undefined) counter = 0 
   else counter++
 
@@ -24,7 +27,7 @@ function main(hide) {
 
   if (hide) {
     chatBar.style.visibility = "hidden"
-    leftBar.style.visibility = "hidden"
+    // leftBar.style.visibility = "hidden"
 
     if (newsFeed.length == 2) { 
       newsFeed[1].style.visibility = "hidden"
@@ -32,13 +35,28 @@ function main(hide) {
 
   } else {
     chatBar.style.visibility = "visible"
-    leftBar.style.visibility = "visible"
+    // leftBar.style.visibility = "visible"
     
     if (newsFeed.length == 2) { 
       newsFeed[1].style.visibility = "visible"
     }
   }
 
+}
+
+function ordinal_suffix_of(i) {
+  var j = i % 10,
+      k = i % 100;
+  if (j == 1 && k != 11) {
+      return i + "st";
+  }
+  if (j == 2 && k != 12) {
+      return i + "nd";
+  }
+  if (j == 3 && k != 13) {
+      return i + "rd";
+  }
+  return i + "th";
 }
 
 let newsFeedDom = document.getElementById("content_container");
@@ -55,6 +73,8 @@ let newsFeedDom = document.getElementById("content_container");
 
   button.addEventListener("click",  () => {
     showNextPage()
+    paginateCount++
+    text.nodeValue = "Sure you want to keep scrolling?<br/>This is your " + ordinal_suffix_of(paginateCount) + " time." 
     setTimeout( function () {
       readNextPage()
       removeNextPage()
