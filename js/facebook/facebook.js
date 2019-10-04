@@ -20,7 +20,14 @@ function main(hide) {
 
 let newsFeedDom = document.getElementById("content_container");
   var button = document.createElement("button");
-  var text = document.createTextNode("LOAD MORE");
+  var text = document.createTextNode("Sure you want to keep scrolling?")
+
+  button.style.border = "1px solid #dddfe2"
+  button.style.borderRadius = "3px"
+  button.style.fontSize = "large"
+  button.style.padding = "12px"
+  button.style.width = "61%"
+
   button.appendChild(text)
 
   button.addEventListener("click",  () => {
@@ -28,7 +35,7 @@ let newsFeedDom = document.getElementById("content_container");
     setTimeout( function () {
       readNextPage()
       removeNextPage()
-    }, 5000)
+    }, 2500)
   })
   newsFeedDom.appendChild(button);
 
