@@ -55,21 +55,26 @@ function reloadContentScript(hide) {
   :)
 
   */
+ let shouldAddTimer = true;
   if (currentURL.includes("facebook.com")) {
     websiteModule = require("./facebook/facebook.js");
-    require("./timer.js");
   } else if (currentURL.includes("twitter.com")) {
     websiteModule = require("./twitter/twitter.js");
-    require("./timer.js");
+  } else if (currentURL.includes("youtube.com")) {
+    websiteModule = require("./youtube/youtube.js");
   } else if (currentURL.includes("linkedin.com")) {
     websiteModule = require("./linkedin/linkedin.js");
-    require("./timer.js");
   } else if (currentURL.includes("reddit.com")) {
     websiteModule = require("./reddit/reddit.js");
-    require("./timer.js");
   } else {
+      shouldAddTimer = false;
     websiteModule = require("./test.js");
   }
+
+  if(shouldAddTimer) {
+    require("./timer.js");
+  }
+  
   websiteModule.main(hide);
 }
 
