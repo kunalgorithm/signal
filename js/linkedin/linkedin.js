@@ -10,13 +10,19 @@ function hideEl(el) {
   el.style.position = "relative";
   el.style.right = "2000em";
   elementsHidden.push(el);
+  console.log("HIDE", elementsHidden);
 }
 
 function showLinkedin() {
+  console.log("SHOW", elementsHidden, elementsHidden.length);
   elementsHidden.map(e => {
-    e.style.position = e.signal_prior_style.position;
-    e.style.right = e.signal_prior_style.right;
-    e.signal_prior_style = undefined;
+    if(e.signal_prior_style !== undefined) {
+      e.style.position = e.signal_prior_style.position;
+      e.style.right = e.signal_prior_style.right;
+      e.signal_prior_style = undefined;
+    } else {
+      console.log("Overlapping calls is the problem");
+    }
   });
   elementsHidden = [];
 }
