@@ -30,7 +30,7 @@ function main(hide) {
 
 function hideLinkedin() {
   function removeMessagingBar() {
-    const myInterval = setInterval(() => {
+    function removeMB() {
       const msgBar = document.querySelector('#msg-overlay');
       if(msgBar === null) {
         return;
@@ -38,12 +38,9 @@ function hideLinkedin() {
         hideEl(msgBar);
         clearInterval(myInterval);
       }
-    }, 333);
-  }
-
-  const currentURL = location.href;
-  if(currentURL.includes("linkedin.com/feed/")) {
-    
+    }
+    const myInterval = setInterval(removeMB , 333);
+    removeMB();
   }
 
   removeMessagingBar();

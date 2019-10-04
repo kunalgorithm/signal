@@ -1,6 +1,6 @@
 {
   "name": "Signal",
-  "version": "1.0",
+  "version": "1.0.1",
   "description": "Make life good",
   "manifest_version": 2,
   "options_page": "options.html",
@@ -19,7 +19,8 @@
     {
       "matches": ["<all_urls>"],
       "run_at": "document_idle",
-      "js": ["build/content.js"]
+      "js": ["build/content.js"],
+      "css": ["css/style.css"]
     }
   ],
 

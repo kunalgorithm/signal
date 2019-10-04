@@ -1,0 +1,133 @@
+#signal-domain-timer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 3vh;
+    right: 3vw;
+    height: auto;
+    width: 12em;
+    padding: .75em 1em;
+    z-index: 9999;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 50px;
+    visibility: hidden;
+    background-color: white;
+}
+
+.signal-time-text {
+    font-size: 3em;
+    font-weight: bolder;
+}
+
+.signal-small-text {
+    font-size: 1em;
+    font-weight: lighter;
+}
+
+
+  @keyframes signal-shakeshake {
+    10% {
+      transform: translate3d(-1px, 0, 0);
+
+    }
+    
+    20% {
+      transform: translate3d(2px, 0, 0);
+      filter: blur(.5px);
+      -webkit-filter: blur(.5px);
+    }
+  
+    30% {
+      transform: translate3d(-4px, 0, 0);
+      filter: blur(.5px);
+      -webkit-filter: blur(.5px);
+    }
+  
+    40% {
+      transform: translate3d(4px, 0, 0);
+      filter: blur(1px);
+      -webkit-filter: blur(1px);
+    }
+
+    50% {
+        transform: translate3d(-4px, 0, 0);
+        filter: blur(1px);
+        -webkit-filter: blur(1px);
+      }
+
+    60% {
+        transform: translate3d(4px, 0, 0);
+        filter: blur(1px);
+        -webkit-filter: blur(1px);
+      }
+
+    70% {
+        transform: translate3d(-4px, 0, 0);
+        filter: blur(.5px);
+        -webkit-filter: blur(.5px);
+      }
+
+    80% {
+        transform: translate3d(2px, 0, 0);
+        filter: blur(.5px);
+        -webkit-filter: blur(.5px);
+      }
+
+    90% {
+        transform: translate3d(-1px, 0, 0);
+      }
+  }
+
+  @keyframes signal-shakeshake-2 {
+    10% {
+      transform: translate3d(-1px, 0, 0);
+
+    }
+    
+    20% {
+      transform: translate3d(2px, 0, 0);
+      filter: blur(.5px);
+      -webkit-filter: blur(.5px);
+    }
+  
+    30% {
+      transform: translate3d(-4px, 0, 0);
+      filter: blur(.5px);
+      -webkit-filter: blur(.5px);
+    }
+  
+    40% {
+      transform: translate3d(4px, 0, 0);
+      filter: blur(1px);
+      -webkit-filter: blur(1px);
+    }
+
+    50% {
+        transform: translate3d(-4px, 0, 0);
+        filter: blur(1px);
+        -webkit-filter: blur(1px);
+      }
+
+    60% {
+        transform: translate3d(4px, 0, 0);
+        filter: blur(1px);
+        -webkit-filter: blur(1px);
+      }
+
+    70% {
+        transform: translate3d(-4px, 0, 0);
+        filter: blur(.5px);
+        -webkit-filter: blur(.5px);
+      }
+
+    80% {
+        transform: translate3d(2px, 0, 0);
+        filter: blur(.5px);
+        -webkit-filter: blur(.5px);
+      }
+
+    90% {
+        transform: translate3d(-1px, 0, 0);
+      }
+  }
