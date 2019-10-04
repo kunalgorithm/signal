@@ -1,6 +1,6 @@
 const timerID = "signal-domain-timer";
-// const nudgeInterval = 900000;
-const nudgeInterval = 9000;
+const nudgeInterval = 900000;
+// const nudgeInterval = 9000;
 
 function makeTimeString(rawS) {
     const minutes = Math.floor(rawS / 60);
