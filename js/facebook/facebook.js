@@ -74,7 +74,7 @@ let newsFeedDom = document.getElementById("content_container");
   button.addEventListener("click",  () => {
     showNextPage()
     paginateCount++
-    text.nodeValue = "Sure you want to keep scrolling?<br/>This is your " + ordinal_suffix_of(paginateCount) + " time." 
+    text.nodeValue = "Sure you want to keep scrolling? This is your " + ordinal_suffix_of(paginateCount) + " time." 
     setTimeout( function () {
       readNextPage()
       removeNextPage()
