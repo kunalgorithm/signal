@@ -10,12 +10,10 @@ function hideEl(el) {
   el.style.position = "relative";
   el.style.right = "2000em";
   elementsHidden.push(el);
-  console.log(elementsHidden);
 }
 
 function showLinkedin() {
   elementsHidden.map(e => {
-    console.log("show", e);
     e.style.position = e.signal_prior_style.position;
     e.style.right = e.signal_prior_style.right;
     e.signal_prior_style = undefined;
@@ -34,7 +32,6 @@ function main(hide) {
 }
 
 function hideLinkedin() {
-  //remove messaging bar
   function removeMessagingBar() {
     const myInterval = setInterval(() => {
       const msgBar = document.querySelector('#msg-overlay');
@@ -65,9 +62,7 @@ function hideLinkedin() {
   }
 
   removeFeed();
-  //remove feed
 
-  //remove sidebar
   function removeSideBar() {
       const sidebar = document.querySelector('.right-rail');
       if(sidebar !== null) {
