@@ -2,10 +2,10 @@ module.exports = {
   // sends a message that the state of "hidden" has changed, and your content script should do something about that
   // It tells you whether it has changed to hidden or changed to visible
   // i,e whether the user wants to see or hide their feed, etc.
-  toggleHide: function(cb) {
-    chrome.storage.sync.get("hidenewsfeed", function(data) {
-      let hide = !data.hidenewsfeed;
-      chrome.storage.sync.set({ hidenewsfeed: hide }, function() {
+  toggleHide: function(key, cb) {
+    chrome.storage.sync.get([key], function(data) {
+      let hide = !data[key];
+      chrome.storage.sync.set({ [key]: hide }, function() {
         cb(hide);
       });
     });
@@ -27,5 +27,20 @@ module.exports = {
       message: "pageShouldUpdate",
       hide
     });
+  },
+
+  // get the localstorage key for a given domain
+  getKeyForUrl: function(url) {
+    let key = "";
+    if (url.includes("facebook.com")) {
+      key = "FACEBOOK";
+    } else if (url.includes("twitter.com")) {
+      key = "TWITTER";
+    } else if (url.includes("linkedin.com")) {
+      key = "LINKEDIN";
+    } else {
+      key = "TEST";
+    }
+    return key;
   }
 };

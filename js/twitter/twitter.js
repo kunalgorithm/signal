@@ -2,7 +2,6 @@ module.exports = { main };
 
 function main(hide) {
   console.log("honey i'm called");
-  burnNewsFeedIfOnHomePage();
 
   const newsFeedSelector = '[data-testid="primaryColumn"]';
   if (hide) {
@@ -12,26 +11,19 @@ function main(hide) {
   }
 
   function burnNewsFeedIfOnHomePage() {
-    chrome.storage.sync.get("hidenewsfeed", function(data) {
-      let currentPage = location.href.split("/");
-      if (data.hidenewsfeed && currentPage[currentPage.length - 1] === "home") {
-        // if we are on the homepage of twitter
-        searchAndDestroy();
-      }
-    });
+    let currentPage = location.href.split("/");
+    if (currentPage[currentPage.length - 1] === "home") {
+      // if we are on the homepage of twitter
+      searchAndDestroy();
+    }
   }
 
   function reviveNewsfeedIfOnHomePage() {
-    chrome.storage.sync.get("hidenewsfeed", function(data) {
-      let currentPage = location.href.split("/");
-      if (
-        !data.hidenewsfeed &&
-        currentPage[currentPage.length - 1] === "home"
-      ) {
-        // if we are on the homepage of twitter
-        searchAndRevive();
-      }
-    });
+    let currentPage = location.href.split("/");
+    if (currentPage[currentPage.length - 1] === "home") {
+      // if we are on the homepage of twitter
+      searchAndRevive();
+    }
   }
 
   function searchAndDestroy() {

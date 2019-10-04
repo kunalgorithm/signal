@@ -1,10 +1,14 @@
 // @ts-nocheck
+const getKey = require("./shared/helpers").getKeyForUrl;
+
 init();
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.message === "urlChanged") {
-    chrome.storage.sync.get("hidenewsfeed", function(data) {
-      reloadContentScript(data.hidenewsfeed);
+    const currentURL = location.href;
+    const key = getKey(currentURL);
+    chrome.storage.sync.get([key], function(data) {
+      reloadContentScript(data[key]);
     });
   }
 });
@@ -16,10 +20,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   }
 });
 
+// mercurymessagesCountValue
+
 // initialize on page load
 function init() {
-  chrome.storage.sync.get("hidenewsfeed", function(data) {
-    require("./shared/helpers").pageShouldUpdate(data.hidenewsfeed);
+  const currentURL = location.href;
+  const key = getKey(currentURL);
+  chrome.storage.sync.get([key], function(data) {
+    require("./shared/helpers").pageShouldUpdate(data[key]);
   });
 }
 
@@ -53,6 +61,8 @@ function reloadContentScript(hide) {
     websiteModule = require("./twitter/twitter.js");
   } else if (currentURL.includes("linkedin.com")) {
     websiteModule = require("./linkedin/linkedin.js");
+  } else if (currentURL.includes("reddit.com")) {
+    websiteModule = require("./reddit/reddit.js");
   } else {
     websiteModule = require("./test.js");
   }
