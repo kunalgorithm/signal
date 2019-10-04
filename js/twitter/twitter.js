@@ -1,8 +1,7 @@
 module.exports = { main };
 
 function main(hide) {
-  console.log("honey i'm called");
-
+  const sidebarSelector = '[data-testid="sidebarColumn"]';
   const newsFeedSelector = '[data-testid="primaryColumn"]';
   if (hide) {
     burnNewsFeedIfOnHomePage();
@@ -33,11 +32,24 @@ function main(hide) {
     function killNewsfeed() {
       checkCount += 1;
       let newsfeed = document.querySelector(newsFeedSelector);
+      let sidebar = document.querySelector(sidebarSelector);
       if (newsfeed) {
         console.log("Burning the Newsfeed");
         window.scrollTo(0, 0); // cuz twitter scrolls you down automatically :(
         clearInterval(checkTimer);
-        newsfeed.style.visibility = "hidden";
+        // newsfeed.style.visibility = "hidden";
+        // let childNodes = newsfeed.firstElementChild.childNodes;
+        // for (let i = 3; i < childNodes.length; i++) {
+        //   childNodes[i].style.visibility = "hidden";
+        // }
+        let magic = newsfeed.firstElementChild.lastElementChild;
+        magic.style.visibility = "hidden";
+      }
+      if (sidebar) {
+        console.log("Burning the Sidebar");
+        window.scrollTo(0, 0); // cuz twitter scrolls you down automatically :(
+        clearInterval(checkTimer);
+        sidebar.style.visibility = "hidden";
       }
 
       if (checkCount === 100) {
@@ -56,10 +68,18 @@ function main(hide) {
     function reviveNewsfeed() {
       checkCount += 1;
       let newsfeed = document.querySelector(newsFeedSelector);
+      let sidebar = document.querySelector(sidebarSelector);
+
       if (newsfeed) {
         console.log("Reviving the Newsfeed");
         clearInterval(checkTimer);
-        newsfeed.style.visibility = "visible";
+        let magic = newsfeed.firstElementChild.lastElementChild;
+        magic.style.visibility = "visible";
+      }
+      if (sidebar) {
+        console.log("Reviving the Sidebar");
+        clearInterval(checkTimer);
+        sidebar.style.visibility = "visible";
       }
 
       if (checkCount === 100) {
