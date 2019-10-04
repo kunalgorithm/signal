@@ -14,8 +14,31 @@ function main(hide) {
     console.log("Screw the first time")
     return
   }
-    readNextPage()
-    removeNextPage()
+  readNextPage()
+  removeNextPage()
+
+  let chatBar = document.getElementsByClassName('fbDock')[0]
+  let leftBar = document.getElementById("left_nav_section_nodes")
+  let newsFeed = document.querySelectorAll('[role="region"]')
+  console.log("NF", newsFeed)
+
+  if (hide) {
+    chatBar.style.visibility = "hidden"
+    leftBar.style.visibility = "hidden"
+
+    if (newsFeed.length == 2) { 
+      newsFeed[1].style.visibility = "hidden"
+    }
+
+  } else {
+    chatBar.style.visibility = "visible"
+    leftBar.style.visibility = "visible"
+    
+    if (newsFeed.length == 2) { 
+      newsFeed[1].style.visibility = "visible"
+    }
+  }
+
 }
 
 let newsFeedDom = document.getElementById("content_container");
@@ -35,7 +58,7 @@ let newsFeedDom = document.getElementById("content_container");
     setTimeout( function () {
       readNextPage()
       removeNextPage()
-    }, 2500)
+    }, 1000)
   })
   newsFeedDom.appendChild(button);
 
