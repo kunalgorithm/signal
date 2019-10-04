@@ -27,5 +27,20 @@ module.exports = {
       message: "pageShouldUpdate",
       hide
     });
+  },
+
+  // get the localstorage key for a given domain
+  getKeyForUrl: function(url) {
+    let key = "";
+    if (url.includes("facebook.com")) {
+      key = "FACEBOOK";
+    } else if (url.includes("twitter.com")) {
+      key = "TWITTER";
+    } else if (url.includes("linkedin.com")) {
+      key = "LINKEDIN";
+    } else {
+      key = "TEST";
+    }
+    return key;
   }
 };
