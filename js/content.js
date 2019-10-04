@@ -6,9 +6,9 @@ init();
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.message === "urlChanged") {
     const currentURL = location.href;
-    console.log("key", getKey(currentURL));
-    chrome.storage.sync.get("hidenewsfeed", function(data) {
-      reloadContentScript(data.hidenewsfeed);
+    const key = getKey(currentURL);
+    chrome.storage.sync.get([key], function(data) {
+      reloadContentScript(data[key]);
     });
   }
 });
@@ -24,8 +24,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 // initialize on page load
 function init() {
-  chrome.storage.sync.get("hidenewsfeed", function(data) {
-    require("./shared/helpers").pageShouldUpdate(data.hidenewsfeed);
+  const currentURL = location.href;
+  const key = getKey(currentURL);
+  chrome.storage.sync.get([key], function(data) {
+    require("./shared/helpers").pageShouldUpdate(data[key]);
   });
 }
 

@@ -1,11 +1,19 @@
+const getKey = require("./shared/helpers").getKeyForUrl;
+
 const checkbox = document.getElementById("hide");
 updateCheckboxUiFromLocalStorage();
 
 // look at local storage, and give the ceckbox the right value
 function updateCheckboxUiFromLocalStorage() {
-  chrome.storage.sync.get("hidenewsfeed", function(data) {
-    updateCheckboxState(data.hidenewsfeed);
-    require("./shared/helpers").pageShouldUpdate(data.hidenewsfeed);
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    var activeTab = tabs[0];
+    const url = activeTab.url;
+    const key = getKey(url);
+    chrome.storage.sync.get([key], function(data) {
+      console.log(data);
+      updateCheckboxState(data[key]);
+      require("./shared/helpers").pageShouldUpdate(data[key]);
+    });
   });
 }
 
@@ -15,13 +23,12 @@ function updateCheckboxState(state) {
 }
 
 checkbox.onclick = function(element) {
-  require("./shared/helpers").toggleHide(
-    require("./shared/helpers").pageShouldUpdate
-  );
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    var activeTab = tabs[0];
+    const url = activeTab.url;
+    require("./shared/helpers").toggleHide(
+      getKey(url),
+      require("./shared/helpers").pageShouldUpdate
+    );
+  });
 };
-
-console.log("hi");
-chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-  var activeTab = tabs[0];
-  console.log("my yung url thooooo", activeTab.url);
-});
