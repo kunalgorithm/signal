@@ -1,14 +1,15 @@
 import browser from "webextension-polyfill";
+import moment from "moment";
 
-import { getDomainContent } from "../shared/utils.js";
+import { getDomainContent, updateStorage } from "../shared/utils.js";
 
-const timerID = "signal-domain-timer";
+const TIMER_ID = "signal-domain-timer";
 const NUDGE_INTERVAL = 30000;
 //1,800	MAX_WRITE_OPERATIONS_PER_HOUR, so min TIMER_TICK is 2000
 const TIMER_TICK = 15000;
 const TIMER_SHOW_TIME = 7500;
 
-class Timer {
+module.exports = class Timer {
   constructor() {
     this.domain = getDomainContent();
     this.addTimerToDOM();
@@ -18,26 +19,39 @@ class Timer {
     setInterval(this.nudge, NUDGE_INTERVAL);
   }
 
+  async initStorage() {
+    const domain = this.domain;
+
+    const storage = await browser.storage.sync.get([domain]);
+    const domainStorage = storage[domain];
+
+    const today = moment().format("MM-DD-YYYY");
+    if (
+      domainStorage.lastDateVisited === undefined ||
+      domainStorage.lastDateVisited !== today
+    ) {
+      updateStorage(domain, { lastDateVisited: today, timeSpentToday: 0 });
+    }
+  }
+
   async addTimerToDOM() {
+    await this.initStorage();
+
+    let timer = document.createElement("div");
+    timer.setAttribute("id", TIMER_ID);
+    document.body.appendChild(timer);
+    console.log("Inserting timer into dom");
+    await this.updateTimerHTML();
+  }
+
+  async updateTimerHTML() {
     const domain = this.domain;
     const storage = await browser.storage.sync.get([domain]);
-    const oldVal = storage[domain];
-    let val;
-    if (oldVal === undefined) {
-      console.log("Initalized timer storage for ", domain);
-      const newVal = { [domain]: 0 };
-      await browser.storage.sync.set(newVal);
-      val = 0;
-    } else {
-      val = oldVal;
-    }
+    const domainStorage = storage[domain];
+    const { timeSpentToday } = domainStorage;
 
-    console.log("Storage works like I think it does", storage);
-    let timer = document.createElement("div");
-    timer.setAttribute("id", timerID);
-    timer.innerHTML = this.makeTimeHTML(val);
-    console.log("Inserting timer into dom");
-    document.body.appendChild(timer);
+    const timer = document.getElementById(TIMER_ID);
+    timer.innerHTML = this.makeTimeHTML(timeSpentToday);
   }
 
   makeTimeHTML(rawS) {
@@ -62,15 +76,15 @@ class Timer {
     return `<div class='signal-small-text'> Time Today: </div> <div class='signal-time-text'>${timeString}</div>`;
   }
 
+  //TODO: Send message to background to check if its the active tab
   async incrementDomainTimer() {
+    // console.log("Incrementing domain timer for", domain);
     const domain = this.domain;
-    console.log("Incrementing domain timer for", domain);
     const storage = await browser.storage.sync.get([domain]);
-    const oldVal = storage[domain];
-    const newVal = oldVal
-      ? { [domain]: oldVal + Math.floor(TIMER_TICK / 1000) }
-      : { [domain]: Math.floor(TIMER_TICK / 1000) };
-    await browser.storage.sync.set(newVal);
+    const domainStorage = storage[domain];
+    const { timeSpentToday } = domainStorage;
+    const currentTime = timeSpentToday + Math.floor(TIMER_TICK / 1000);
+    await updateStorage(domain, { timeSpentToday: currentTime });
   }
 
   async nudge() {
@@ -85,18 +99,13 @@ class Timer {
     }
 
     function addAndRemoveTimer() {
+      const timer = document.getElementById(TIMER_ID);
       timer.style.visibility = "visible";
       setTimeout(() => (timer.style.visibility = "hidden"), TIMER_SHOW_TIME);
     }
 
-    const domain = this.domain;
-    const storage = await browser.storage.sync.get([domain]);
-    const timer = document.getElementById("signal-domain-timer");
-    timer.innerHTML = this.makeTimeHTML(storage[domain]);
-
+    await this.updateTimerHTML();
     shakeBody();
     addAndRemoveTimer();
   }
-}
-
-new Timer();
+};

@@ -8,7 +8,6 @@ init()
   .then(() => console.log("Established Signal"))
   .catch(err => console.error("Content Script Error", err));
 
-console.log("CONENT");
 async function init() {
   const currentURL = getDomainContent();
   const storage = await browser.storage.sync.get([currentURL]);
@@ -75,5 +74,7 @@ function reloadContentScript(hide) {
   const script = scriptRetrievalFt();
   script.main(hide);
 
-  // require("./timer.js");
+  const Timer = require("./timer.js");
+  console.log(Timer);
+  new Timer();
 }
