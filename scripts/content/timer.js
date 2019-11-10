@@ -1,6 +1,6 @@
 import browser from "webextension-polyfill";
 
-import { getDomain } from "./utils.js";
+import { getDomainContent } from "../shared/utils.js";
 
 const timerID = "signal-domain-timer";
 const NUDGE_INTERVAL = 30000;
@@ -10,7 +10,7 @@ const TIMER_SHOW_TIME = 7500;
 
 class Timer {
   constructor() {
-    this.domain = getDomain();
+    this.domain = getDomainContent();
     this.addTimerToDOM();
     this.incrementDomainTimer = this.incrementDomainTimer.bind(this);
     this.nudge = this.nudge.bind(this);

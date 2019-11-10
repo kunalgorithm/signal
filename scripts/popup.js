@@ -1,9 +1,9 @@
 import browser from "webextension-polyfill";
 
-import { getDomainBackground } from "./shared/utils.js";
+import { getDomainBackground, updateStorage } from "./shared/utils.js";
 
 //TODO: Only add checkbox if this is a valid url for usage
-//TODO: Error when popup is still around after a url update, need listener for that
+//TODO: Error when popup is still around after a url update, need listener for
 
 const checkbox = document.getElementById("hide");
 updateCheckboxUiFromLocalStorage();
@@ -23,14 +23,7 @@ function updateCheckboxState(state) {
 
 checkbox.onclick = async e => {
   const url = await getDomainBackground();
-  const storage = await browser.storage.sync.get([url]);
-  const curStorage = storage[url];
   console.log("Popup setting hide to ", e.target.checked);
 
-  browser.storage.sync.set({
-    [url]: {
-      ...curStorage,
-      shouldHide: e.target.checked
-    }
-  });
+  await updateStorage(url, { shouldHide: e.target.checked });
 };

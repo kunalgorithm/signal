@@ -1,13 +1,14 @@
 import browser from "webextension-polyfill";
 
 import "../shared/dev_debug.js";
-
+import siteConfig from "../shared/siteConfig.js";
 import { getDomainContent } from "../shared/utils.js";
 
 init()
   .then(() => console.log("Established Signal"))
   .catch(err => console.error("Content Script Error", err));
 
+console.log("CONENT");
 async function init() {
   const currentURL = getDomainContent();
   const storage = await browser.storage.sync.get([currentURL]);
@@ -37,7 +38,6 @@ browser.storage.onChanged.addListener(changes => {
 
   const curShouldHide = newURLChange.newValue.shouldHide;
   if (newURLChange.oldValue.shouldHide !== curShouldHide) {
-    console.log("Reloading content script to ", curShouldHide);
     reloadContentScript(curShouldHide);
   }
 });
@@ -64,26 +64,16 @@ function reloadContentScript(hide) {
 
   */
   const currentURL = getDomainContent();
-  let websiteModule = null;
-  let shouldAddTimer = true;
-  if (currentURL.includes("facebook.com")) {
-    websiteModule = require("./sites/facebook.js");
-  } else if (currentURL.includes("twitter.com")) {
-    websiteModule = require("./sites/twitter.js");
-  } else if (currentURL.includes("youtube.com")) {
-    websiteModule = require("./sites/youtube.js");
-  } else if (currentURL.includes("linkedin.com")) {
-    websiteModule = require("./sites/linkedin.js");
-  } else if (currentURL.includes("reddit.com")) {
-    websiteModule = require("./sites/reddit.js");
-  } else {
-    shouldAddTimer = false;
-    websiteModule = require("./sites/test.js");
+  const scriptRetrievalFt = siteConfig[currentURL];
+  if (scriptRetrievalFt === undefined) {
+    console.error(
+      "No script for current domain, did you add the url to the siteConfig and the manifest.json"
+    );
+    return;
   }
 
-  if (shouldAddTimer) {
-    // require("./timer.js");
-  }
+  const script = scriptRetrievalFt();
+  script.main(hide);
 
-  websiteModule.main(hide);
+  // require("./timer.js");
 }
