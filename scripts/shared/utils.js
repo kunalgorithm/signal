@@ -12,6 +12,10 @@ export async function getDomainBackground() {
   return new URL(url).hostname;
 }
 
+export function getDomainFromURL(url) {
+  return new URL(url).hostname;
+}
+
 //properly merge state for the url with the newValues overridding old ones
 export async function updateStorage(url, newValues) {
   const storage = await browser.storage.sync.get([url]);

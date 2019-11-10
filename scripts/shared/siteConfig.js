@@ -4,6 +4,7 @@
   runs all of them, by putting them in a function it will only include it if you want it to be included :o
 */
 
+//TODO: Define a options function for each file that can then be used to populate options page, change shouldHide to options dict
 const siteConfig = {
   "www.youtube.com": () => require("../content/sites/youtube.js"),
   "www.facebook.com": () => require("../content/sites/facebook.js"),

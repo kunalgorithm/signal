@@ -3,6 +3,7 @@ import browser from "webextension-polyfill";
 import "../shared/dev_debug.js";
 import siteConfig from "../shared/siteConfig.js";
 import { getDomainContent } from "../shared/utils.js";
+import Timer from "./timer.js";
 
 init()
   .then(() => console.log("Established Signal"))
@@ -11,11 +12,10 @@ init()
 async function init() {
   const currentURL = getDomainContent();
   const storage = await browser.storage.sync.get([currentURL]);
-  console.log({ storage });
   const urlStorage = storage[currentURL];
   let shouldHide;
   if (urlStorage === undefined || urlStorage.shouldHide === undefined) {
-    //{...undefined} => {}
+    //Dont worry if urlStorage is undefined, {...undefined} => {}
     await browser.storage.sync.set({
       [currentURL]: { ...urlStorage, shouldHide: true }
     });
@@ -25,6 +25,7 @@ async function init() {
   }
 
   reloadContentScript(shouldHide);
+  new Timer(); //only one timer per page
 }
 
 //Debug local storage changes
@@ -73,8 +74,4 @@ function reloadContentScript(hide) {
 
   const script = scriptRetrievalFt();
   script.main(hide);
-
-  const Timer = require("./timer.js");
-  console.log(Timer);
-  new Timer();
 }

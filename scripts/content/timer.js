@@ -9,7 +9,7 @@ const NUDGE_INTERVAL = 30000;
 const TIMER_TICK = 15000;
 const TIMER_SHOW_TIME = 7500;
 
-module.exports = class Timer {
+export default class Timer {
   constructor() {
     this.domain = getDomainContent();
     this.addTimerToDOM();
@@ -80,15 +80,16 @@ module.exports = class Timer {
     return `<div class='signal-small-text'> Time Today: </div> <div class='signal-time-text'>${timeString}</div>`;
   }
 
-  //TODO: Send message to background to check if its the active tab
   async incrementDomainTimer() {
-    // console.log("Incrementing domain timer for", domain);
-    const domain = this.domain;
-    const storage = await browser.storage.sync.get([domain]);
-    const domainStorage = storage[domain];
-    const { timeSpentToday } = domainStorage;
-    const currentTime = timeSpentToday + Math.floor(TIMER_TICK / 1000);
-    await updateStorage(domain, { timeSpentToday: currentTime });
+    //only increment if document is current visible
+    if (document.visibilityState === "visible") {
+      const domain = this.domain;
+      const storage = await browser.storage.sync.get([domain]);
+      const domainStorage = storage[domain];
+      const { timeSpentToday } = domainStorage;
+      const currentTime = timeSpentToday + Math.floor(TIMER_TICK / 1000);
+      await updateStorage(domain, { timeSpentToday: currentTime });
+    }
   }
 
   async nudge() {
@@ -102,7 +103,7 @@ module.exports = class Timer {
       }
     }
 
-    //need to preserve this
+    //need to preserve this ptr so arrow ft
     const addAndRemoveTimer = () => {
       const timer = document.getElementById(TIMER_ID);
       timer.style.visibility = "visible";
@@ -120,4 +121,4 @@ module.exports = class Timer {
     shakeBody();
     addAndRemoveTimer();
   }
-};
+}
