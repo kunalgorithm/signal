@@ -1,5 +1,10 @@
-// @ts-nocheck
-const getKey = require("./shared/helpers").getKeyForUrl;
+import browser from "webextension-polyfill";
+
+import "../shared/dev_debug.js";
+
+console.log("Signal content script runs");
+
+const getKey = require("../shared/helpers").getKeyForUrl;
 
 init();
 
@@ -27,7 +32,7 @@ function init() {
   const currentURL = location.href;
   const key = getKey(currentURL);
   chrome.storage.sync.get([key], function(data) {
-    require("./shared/helpers").pageShouldUpdate(data[key]);
+    require("../shared/helpers").pageShouldUpdate(data[key]);
   });
 }
 
@@ -55,27 +60,25 @@ function reloadContentScript(hide) {
   :)
 
   */
- let shouldAddTimer = true;
+  let shouldAddTimer = true;
   if (currentURL.includes("facebook.com")) {
-    websiteModule = require("./facebook/facebook.js");
+    websiteModule = require("./sites/facebook.js");
   } else if (currentURL.includes("twitter.com")) {
-    websiteModule = require("./twitter/twitter.js");
+    websiteModule = require("./sites/twitter.js");
   } else if (currentURL.includes("youtube.com")) {
-    websiteModule = require("./youtube/youtube.js");
+    websiteModule = require("./sites/youtube.js");
   } else if (currentURL.includes("linkedin.com")) {
-    websiteModule = require("./linkedin/linkedin.js");
+    websiteModule = require("./sites/linkedin.js");
   } else if (currentURL.includes("reddit.com")) {
-    websiteModule = require("./reddit/reddit.js");
+    websiteModule = require("./sites/reddit.js");
   } else {
-      shouldAddTimer = false;
-    websiteModule = require("./test.js");
+    shouldAddTimer = false;
+    websiteModule = require("./sites/test.js");
   }
 
-  if(shouldAddTimer) {
+  if (shouldAddTimer) {
     require("./timer.js");
   }
-  
+
   websiteModule.main(hide);
 }
-
-

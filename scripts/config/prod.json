@@ -1,0 +1,4 @@
+{
+  "env": "prod",
+  "server_url": "https://api.modulo.blog"
+}

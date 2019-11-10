@@ -1,27 +1,39 @@
 {
-  "name": "Agora",
+  "name": "chrome-base",
   "version": "0.1.0",
   "description": "Make web social again",
-  "main": "src/js/main.js",
+  "main": "dist/build/background.js",
   "scripts": {
-    "watch:content": "parcel watch js/content.js -d build/ -o content.js",
-    "watch:background": "parcel watch js/background.js -d build/ -o background.js",
-    "watch:popup": "parcel watch js/popup.js -d build/ -o popup.js",
+    "build:content": "parcel build scripts/content/content.js -d dist/build/ -o content.js",
+    "watch:content": "parcel watch --no-hmr scripts/content/content.js -d dist/build/ -o content.js",
+    "build:background": "parcel build scripts/background/background.js -d dist/build/ -o background.js",
+    "watch:background": "parcel watch --no-hmr scripts/background/background.js -d dist/build/ -o background.js",
+    "watch:popup": "parcel watch --no-hmr scripts/popup.js -d dist/build/ -o popup.js",
+    "build:popup": "parcel build scripts/popup.js -d dist/build/ -o popup.js",
+    "build": "concurrently \"npm run build:content\" \"npm run build:background\" \"npm run build:popup\"",
     "watch": "concurrently \"npm run watch:content\" \"npm run watch:background\" \"npm run watch:popup\"",
-    "delete": "rm -rf node_modules && rm package-lock.json"
+    "clean": "rm -rf node_modules && rm package-lock.json"
   },
   "author": "Jorge Fuentes",
   "dependencies": {
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.6.2",
-    "@babel/preset-react": "^7.0.0",
-    "moment": "^2.24.0",
-    "parcel-bundler": "^1.12.3",
+    "@babel/runtime": "^7.5.5",
+    "debug": "^4.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
-    "concurrently": "^4.1.0"
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-react": "^7.0.0",
+    "concurrently": "^4.1.0",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^2.2.0",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^1.18.2",
+    "webextension-polyfill": "^0.5.0"
   }
 }
