@@ -15,6 +15,7 @@ module.exports = class Timer {
     this.addTimerToDOM();
     this.incrementDomainTimer = this.incrementDomainTimer.bind(this);
     this.nudge = this.nudge.bind(this);
+    this.updateTimerHTML = this.updateTimerHTML.bind(this);
     setInterval(this.incrementDomainTimer, TIMER_TICK);
     setInterval(this.nudge, NUDGE_INTERVAL);
   }
@@ -44,14 +45,17 @@ module.exports = class Timer {
     await this.updateTimerHTML();
   }
 
-  async updateTimerHTML() {
-    const domain = this.domain;
-    const storage = await browser.storage.sync.get([domain]);
-    const domainStorage = storage[domain];
-    const { timeSpentToday } = domainStorage;
+  async updateTimerHTML(newTime) {
+    if (newTime === undefined) {
+      const domain = this.domain;
+      const storage = await browser.storage.sync.get([domain]);
+      const domainStorage = storage[domain];
+      newTime = domainStorage.timeSpentToday;
+    }
 
     const timer = document.getElementById(TIMER_ID);
-    timer.innerHTML = this.makeTimeHTML(timeSpentToday);
+    timer.innerHTML = this.makeTimeHTML(newTime);
+    this.timerHTMLTime = newTime;
   }
 
   makeTimeHTML(rawS) {
@@ -98,11 +102,19 @@ module.exports = class Timer {
       }
     }
 
-    function addAndRemoveTimer() {
+    //need to preserve this
+    const addAndRemoveTimer = () => {
       const timer = document.getElementById(TIMER_ID);
       timer.style.visibility = "visible";
-      setTimeout(() => (timer.style.visibility = "hidden"), TIMER_SHOW_TIME);
-    }
+      const intervalID = setInterval(
+        () => this.updateTimerHTML(this.timerHTMLTime + 1),
+        1000
+      );
+      setTimeout(() => {
+        timer.style.visibility = "hidden";
+        clearInterval(intervalID);
+      }, TIMER_SHOW_TIME);
+    };
 
     await this.updateTimerHTML();
     shakeBody();
