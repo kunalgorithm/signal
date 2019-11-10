@@ -1,5 +1,7 @@
 module.exports = { main };
 
+console.log("Linkedin test");
+
 let elementsHidden = [];
 
 function hideEl(el) {

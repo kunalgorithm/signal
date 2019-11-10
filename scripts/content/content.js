@@ -2,44 +2,47 @@ import browser from "webextension-polyfill";
 
 import "../shared/dev_debug.js";
 
-console.log("Signal content script runs");
+import { getDomainContent } from "../shared/utils.js";
 
-const getKey = require("../shared/helpers").getKeyForUrl;
+init()
+  .then(() => console.log("Established Signal"))
+  .catch(err => console.error("Content Script Error", err));
 
-init();
-
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  if (request.message === "urlChanged") {
-    const currentURL = location.href;
-    const key = getKey(currentURL);
-    chrome.storage.sync.get([key], function(data) {
-      reloadContentScript(data[key]);
+async function init() {
+  const currentURL = getDomainContent();
+  const storage = await browser.storage.sync.get([currentURL]);
+  console.log({ storage });
+  const urlStorage = storage[currentURL];
+  let shouldHide;
+  if (urlStorage === undefined || urlStorage.shouldHide === undefined) {
+    //{...undefined} => {}
+    await browser.storage.sync.set({
+      [currentURL]: { ...urlStorage, shouldHide: true }
     });
+    shouldHide = true;
+  } else {
+    shouldHide = urlStorage.shouldHide;
   }
-});
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  // the state was changed, do something about it
-  if (request.message === "pageWillUpdate") {
-    reloadContentScript(request.hide);
-  }
-});
-
-// mercurymessagesCountValue
-
-// initialize on page load
-function init() {
-  const currentURL = location.href;
-  const key = getKey(currentURL);
-  chrome.storage.sync.get([key], function(data) {
-    require("../shared/helpers").pageShouldUpdate(data[key]);
-  });
+  reloadContentScript(shouldHide);
 }
 
+//Debug local storage changes
+browser.storage.onChanged.addListener(changes => {
+  const currentURL = getDomainContent();
+  const newURLChange = changes[currentURL];
+  if (!newURLChange) {
+    return;
+  }
+
+  const curShouldHide = newURLChange.newValue.shouldHide;
+  if (newURLChange.oldValue.shouldHide !== curShouldHide) {
+    console.log("Reloading content script to ", curShouldHide);
+    reloadContentScript(curShouldHide);
+  }
+});
+
 function reloadContentScript(hide) {
-  const currentURL = location.href;
-  console.log("Establishing Signal");
-  let websiteModule = null;
   /* 
   How to add your module by Dmitri
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -60,6 +63,8 @@ function reloadContentScript(hide) {
   :)
 
   */
+  const currentURL = getDomainContent();
+  let websiteModule = null;
   let shouldAddTimer = true;
   if (currentURL.includes("facebook.com")) {
     websiteModule = require("./sites/facebook.js");
@@ -77,7 +82,7 @@ function reloadContentScript(hide) {
   }
 
   if (shouldAddTimer) {
-    require("./timer.js");
+    // require("./timer.js");
   }
 
   websiteModule.main(hide);
