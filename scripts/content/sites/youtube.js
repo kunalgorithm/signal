@@ -1,14 +1,17 @@
 module.exports = { main };
 
+import { hideQuerySelector, showAll } from "../utils.js";
+import debugMaker from "debug";
+// eslint-disable-next-line no-unused-vars
+const debug = debugMaker("app:youtube");
+
 function main(hide) {
-  console.log("🏃‍♂ running youtube.js", hide);
+  debug("🏃‍♂ running youtube.js", hide);
   if (hide) {
-    document.getElementById("contents").style.visibility = "hidden";
-    document.getElementById("related").style.visibility = "hidden";
-    document.getElementById("comments").style.visibility = "hidden";
+    hideQuerySelector("#contents");
+    hideQuerySelector("#related");
+    hideQuerySelector("#comments");
   } else {
-    document.getElementById("contents").style.visibility = "visible";
-    document.getElementById("related").style.visibility = "visible";
-    document.getElementById("comments").style.visibility = "visible";
+    showAll();
   }
 }

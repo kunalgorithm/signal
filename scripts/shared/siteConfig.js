@@ -9,8 +9,8 @@ const siteConfig = {
   "www.youtube.com": () => require("../content/sites/youtube.js"),
   "www.facebook.com": () => require("../content/sites/facebook.js"),
   "www.linkedin.com": () => require("../content/sites/linkedin.js"),
-  "www.reddit.com": () => require("../content/sites/reddit.js"),
-  "www.twitter.com": () => require("../content/sites/twitter.js")
+  "twitter.com": () => require("../content/sites/twitter.js")
+  // "www.reddit.com": () => require("../content/sites/reddit.js"), readd to manifest.json too
 };
 
 export default siteConfig;

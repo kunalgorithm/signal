@@ -1,6 +1,10 @@
 module.exports = { main };
 
-console.log("🤦‍ running facebook script");
+import debugMaker from "debug";
+// eslint-disable-next-line no-unused-vars
+const debug = debugMaker("app:facebook");
+
+debug("🤦‍ running facebook script");
 
 let child;
 let parent;
@@ -8,13 +12,15 @@ let counter;
 let paginateCount;
 
 function main(hide) {
+  debug("🤦‍ running linkedin script", hide);
+
   if (paginateCount === undefined) paginateCount = 0;
 
   if (counter === undefined) counter = 0;
   else counter++;
 
   if (counter == 0) {
-    console.log("Screw the first time");
+    debug("Screw the first time");
     return;
   }
   readNextPage();
@@ -23,7 +29,7 @@ function main(hide) {
   let chatBar = document.getElementsByClassName("fbDock")[0];
   let leftBar = document.getElementById("left_nav_section_nodes");
   let newsFeed = document.querySelectorAll('[role="region"]');
-  console.log("NF", newsFeed);
+  debug("NF", newsFeed);
 
   if (hide) {
     chatBar.style.visibility = "hidden";
@@ -84,9 +90,9 @@ button.addEventListener("click", () => {
 newsFeedDom.appendChild(button);
 
 function removeNextPage() {
-  console.log("Remove Next Page", child, parent);
+  debug("Remove Next Page", child, parent);
   if (!document.getElementsByClassName("mbl")[0]) {
-    console.log("Null to remove");
+    debug("Null to remove");
     return;
   }
   document
@@ -95,9 +101,9 @@ function removeNextPage() {
 }
 
 function readNextPage() {
-  console.log("Read Next Page", child, parent);
+  debug("Read Next Page", child, parent);
   if (document.getElementsByClassName("mbl")[0] == undefined) {
-    console.log("Attempt to read next page FAILED");
+    debug("Attempt to read next page FAILED");
     return;
   }
   child = document.getElementsByClassName("mbl")[0];
@@ -105,14 +111,14 @@ function readNextPage() {
 }
 
 function showNextPage() {
-  console.log("Show Next Page", child, parent);
+  debug("Show Next Page", child, parent);
   if (child === undefined) {
-    console.log("No child");
+    debug("No child");
     return;
   }
 
   if (parent === undefined) {
-    console.log("No parent");
+    debug("No parent");
     return;
   }
 

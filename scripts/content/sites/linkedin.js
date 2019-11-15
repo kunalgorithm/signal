@@ -1,32 +1,17 @@
 module.exports = { main };
 
-console.log("Linkedin test");
-
-let elementsHidden = [];
-
-function hideEl(el) {
-  //Instead of visibilty just move off page because weird to deal with svgs
-  // https://github.com/highcharts/highcharts/issues/2597
-  el.style.position = "relative";
-  el.style.right = "2000em";
-  elementsHidden.push(el);
-}
-
-function showLinkedin() {
-  console.log("SHOW", elementsHidden, elementsHidden.length);
-  elementsHidden.map(e => {
-    e.style.position = "static";
-  });
-  elementsHidden = [];
-}
+import { hideEl, showAll } from "../utils.js";
+import debugMaker from "debug";
+// eslint-disable-next-line no-unused-vars
+const debug = debugMaker("app:linkedin");
 
 function main(hide) {
-  console.log("🤦‍ running linkedin script");
+  debug("🤦‍ running linkedin script", hide);
 
   if (hide) {
     hideLinkedin();
   } else {
-    showLinkedin();
+    showAll();
   }
 }
 

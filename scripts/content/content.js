@@ -1,4 +1,7 @@
 import browser from "webextension-polyfill";
+import debugMaker from "debug";
+// eslint-disable-next-line no-unused-vars
+const debug = debugMaker("app:content");
 
 import "../shared/dev_debug.js";
 import siteConfig from "../shared/siteConfig.js";
@@ -6,7 +9,7 @@ import { getDomainContent } from "../shared/utils.js";
 import Timer from "./timer.js";
 
 init()
-  .then(() => console.log("Established Signal"))
+  .then(() => debug("Established Signal"))
   .catch(err => console.error("Content Script Error", err));
 
 async function init() {

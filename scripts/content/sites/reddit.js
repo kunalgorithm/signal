@@ -1,8 +1,12 @@
 module.exports = { main };
 
-console.log("runnning reddit script");
+import debugMaker from "debug";
+// eslint-disable-next-line no-unused-vars
+const debug = debugMaker("app:reddit");
 
 function main(redirect) {
+  debug("🏃‍♂ running twitter.js", redirect);
+
   if (redirect) {
     if (test(window.location.href)) {
       window.location.assign(getNewPagePlease(window.location.href));

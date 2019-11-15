@@ -1,23 +1,29 @@
 import browser from "webextension-polyfill";
 import moment from "moment";
+import debugMaker from "debug";
+// eslint-disable-next-line no-unused-vars
+const debug = debugMaker("app:timer");
 
 import { getDomainContent, updateStorage } from "../shared/utils.js";
 
-const TIMER_ID = "signal-domain-timer";
-const NUDGE_INTERVAL = 30000;
 //1,800	MAX_WRITE_OPERATIONS_PER_HOUR, so min TIMER_TICK is 2000
-const TIMER_TICK = 15000;
+const TIMER_ID = "signal-domain-timer";
 const TIMER_SHOW_TIME = 7500;
 
 export default class Timer {
   constructor() {
     this.domain = getDomainContent();
-    this.addTimerToDOM();
-    this.incrementDomainTimer = this.incrementDomainTimer.bind(this);
     this.nudge = this.nudge.bind(this);
     this.updateTimerHTML = this.updateTimerHTML.bind(this);
-    setInterval(this.incrementDomainTimer, TIMER_TICK);
-    setInterval(this.nudge, NUDGE_INTERVAL);
+    browser.runtime.onMessage.addListener(msg => {
+      if (msg.type === "nudge") {
+        this.nudge();
+        return;
+      }
+    });
+    this.initStorage().catch(err =>
+      console.error("Failed to init storage", err)
+    );
   }
 
   async initStorage() {
@@ -35,14 +41,11 @@ export default class Timer {
     }
   }
 
-  async addTimerToDOM() {
-    await this.initStorage();
-
+  addTimerToDOM() {
     let timer = document.createElement("div");
     timer.setAttribute("id", TIMER_ID);
     document.body.appendChild(timer);
-    console.log("Inserting timer into dom");
-    await this.updateTimerHTML();
+    debug("Inserted timer into dom");
   }
 
   async updateTimerHTML(newTime) {
@@ -80,19 +83,9 @@ export default class Timer {
     return `<div class='signal-small-text'> Time Today: </div> <div class='signal-time-text'>${timeString}</div>`;
   }
 
-  async incrementDomainTimer() {
-    //only increment if document is current visible
-    if (document.visibilityState === "visible") {
-      const domain = this.domain;
-      const storage = await browser.storage.sync.get([domain]);
-      const domainStorage = storage[domain];
-      const { timeSpentToday } = domainStorage;
-      const currentTime = timeSpentToday + Math.floor(TIMER_TICK / 1000);
-      await updateStorage(domain, { timeSpentToday: currentTime });
-    }
-  }
-
   async nudge() {
+    debug("Nudging");
+
     function shakeBody() {
       if (document.body.style.animation.includes("signal-shakeshake-2")) {
         document.body.style.animation =
@@ -105,7 +98,7 @@ export default class Timer {
 
     //need to preserve this ptr so arrow ft
     const addAndRemoveTimer = () => {
-      const timer = document.getElementById(TIMER_ID);
+      let timer = document.getElementById(TIMER_ID);
       timer.style.visibility = "visible";
       const intervalID = setInterval(
         () => this.updateTimerHTML(this.timerHTMLTime + 1),
@@ -117,6 +110,11 @@ export default class Timer {
       }, TIMER_SHOW_TIME);
     };
 
+    let timer = document.getElementById(TIMER_ID);
+    if (timer === null) {
+      this.addTimerToDOM();
+      timer = document.getElementById(TIMER_ID);
+    }
     await this.updateTimerHTML();
     shakeBody();
     addAndRemoveTimer();

@@ -1,6 +1,12 @@
 module.exports = { main };
 
+import debugMaker from "debug";
+// eslint-disable-next-line no-unused-vars
+const debug = debugMaker("app:twitter");
+
 function main(hide) {
+  debug("🏃‍♂ running twitter.js", hide);
+
   const sidebarSelector = '[data-testid="sidebarColumn"]';
   const newsFeedSelector = '[data-testid="primaryColumn"]';
   if (hide) {
@@ -34,7 +40,7 @@ function main(hide) {
       let newsfeed = document.querySelector(newsFeedSelector);
       let sidebar = document.querySelector(sidebarSelector);
       if (newsfeed) {
-        console.log("Burning the Newsfeed");
+        debug("Burning the Newsfeed");
         window.scrollTo(0, 0); // cuz twitter scrolls you down automatically :(
         clearInterval(checkTimer);
         // newsfeed.style.visibility = "hidden";
@@ -46,14 +52,14 @@ function main(hide) {
         magic.style.visibility = "hidden";
       }
       if (sidebar) {
-        console.log("Burning the Sidebar");
+        debug("Burning the Sidebar");
         window.scrollTo(0, 0); // cuz twitter scrolls you down automatically :(
         clearInterval(checkTimer);
         sidebar.style.visibility = "hidden";
       }
 
       if (checkCount === 100) {
-        console.log(
+        debug(
           "Couldn't find the newsfeed. Maybe Twitter changed their design again..."
         );
         clearInterval(checkTimer);
@@ -71,19 +77,19 @@ function main(hide) {
       let sidebar = document.querySelector(sidebarSelector);
 
       if (newsfeed) {
-        console.log("Reviving the Newsfeed");
+        debug("Reviving the Newsfeed");
         clearInterval(checkTimer);
         let magic = newsfeed.firstElementChild.lastElementChild;
         magic.style.visibility = "visible";
       }
       if (sidebar) {
-        console.log("Reviving the Sidebar");
+        debug("Reviving the Sidebar");
         clearInterval(checkTimer);
         sidebar.style.visibility = "visible";
       }
 
       if (checkCount === 100) {
-        console.log(
+        debug(
           "Couldn't find the newsfeed. Maybe Twitter changed their design again..."
         );
         clearInterval(checkTimer);

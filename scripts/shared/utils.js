@@ -5,7 +5,7 @@ export function getDomainContent() {
   return new URL(location.href).hostname;
 }
 
-export async function getDomainBackground() {
+export async function getDomainBackgroundA() {
   const tabs = await browser.tabs.query({ active: true, currentWindow: true });
   const activeTab = tabs[0];
   const url = activeTab.url;
