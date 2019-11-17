@@ -1,18 +1,10 @@
 {
   "name": "Signal",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Removes addictive UI patterns from the most popular websites.",
   "manifest_version": 2,
 
-  "permissions": [
-    "alarms",
-    "declarativeContent",
-    "identity",
-    "identity.email",
-    "storage",
-    "tabs",
-    "webNavigation"
-  ],
+  "permissions": ["alarms", "storage", "tabs", "webNavigation"],
 
   "content_scripts": [
     {

@@ -8,7 +8,7 @@ import { getDomainBackgroundA, updateStorage } from "../shared/utils.js";
 
 const TICK = "tick";
 const TIMER_TICK = 60;
-const NUDGE_TICK = TIMER_TICK * 2;
+const NUDGE_TICK = TIMER_TICK * 15;
 const periodInMinutes = TIMER_TICK / 60;
 browser.alarms.create(TICK, { periodInMinutes });
 
