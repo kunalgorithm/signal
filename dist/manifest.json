@@ -27,9 +27,9 @@
     "default_popup": "popup.html"
   },
   "icons": {
-    "16": "icon.png",
-    "24": "icon.png",
-    "48": "icon.png",
-    "128": "icon.png"
+    "16": "signal16.png",
+    "24": "signal24.png",
+    "48": "signal48.png",
+    "128": "signal128.png"
   }
 }

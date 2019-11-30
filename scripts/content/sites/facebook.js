@@ -4,15 +4,13 @@ import debugMaker from "debug";
 // eslint-disable-next-line no-unused-vars
 const debug = debugMaker("app:facebook");
 
-debug("🤦‍ running facebook script");
-
 let child;
 let parent;
 let counter;
 let paginateCount;
 
 function main(hide) {
-  debug("🤦‍ running linkedin script", hide);
+  debug("🤦‍ running facebook script", hide);
 
   if (paginateCount === undefined) paginateCount = 0;
 

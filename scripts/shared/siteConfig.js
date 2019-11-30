@@ -7,7 +7,7 @@
 //TODO: Define a options function for each file that can then be used to populate options page, change shouldHide to options dict
 const siteConfig = {
   "www.youtube.com": () => require("../content/sites/youtube.js"),
-  "www.facebook.com": () => require("../content/sites/facebook.js"),
+  "www.facebook.com": () => require("../content/sites/facebook_v0.js"),
   "www.linkedin.com": () => require("../content/sites/linkedin.js"),
   "twitter.com": () => require("../content/sites/twitter.js")
   // "www.reddit.com": () => require("../content/sites/reddit.js"), readd to manifest.json too

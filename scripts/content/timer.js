@@ -8,7 +8,7 @@ import { getDomainContent, updateStorage } from "../shared/utils.js";
 
 //1,800	MAX_WRITE_OPERATIONS_PER_HOUR, so min TIMER_TICK is 2000
 const TIMER_ID = "signal-domain-timer";
-const TIMER_SHOW_TIME = 7500;
+const TIMER_SHOW_TIME = 9000;
 
 export default class Timer {
   constructor() {

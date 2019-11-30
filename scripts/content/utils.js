@@ -6,7 +6,11 @@ let elementsHidden = [];
 
 export function hideQuerySelector(selector) {
   const selectorEl = document.querySelector(selector);
-  if (selectorEl === null) return;
+  if (selectorEl === null) {
+    debug(selector, "not found :( could be error");
+    return;
+  }
+
   hideEl(selectorEl);
 }
 

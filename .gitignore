@@ -107,3 +107,5 @@ typings/
 .DS_STORE
 *~*
 dist/build/*
+*.pem
+*.crx

@@ -5,6 +5,13 @@ const debug = debugMaker("app:background");
 
 import "../shared/dev_debug.js";
 import { getDomainBackgroundA, updateStorage } from "../shared/utils.js";
+import siteConfig from "../shared/siteConfig.js";
+
+browser.runtime.onInstalled.addListener(() => {
+  for (let domain of Object.keys(siteConfig)) {
+    updateStorage(domain, { shouldHide: true });
+  }
+});
 
 const TICK = "tick";
 const TIMER_TICK = 60;
